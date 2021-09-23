@@ -14,21 +14,23 @@ class ActressController extends Controller
      */
     public function index() //get
     {
-        $country =\request('country');
+        $country = \request('country');
+        $age_lt = \request('age_lte');
+        $age_gt = \request('age_gte');
         return response()->json(
             [
-                'actresses'=>Actress::query()
-                    ->when($country, function ($query) use ($country){
-                        return $query->where('country',$country);
+                'actresses' => Actress::query()
+                    ->when($country, function ($query) use ($country,$age_gt) {
+                        return $query->where('country', $country);
                     })
                     ->get()
-                ->mapWithKeys(function ($actress){
-                    return [$actress->id=>[
-                        'name'=>$actress->name,
-                        'age'=>$actress->age,
-                        'country'=>$actress->country
-                    ]];
-                })
+                    ->mapWithKeys(function ($actress) {
+                        return [$actress->id => [
+                            'name' => $actress->name,
+                            'age' => $actress->age,
+                            'country' => $actress->country
+                        ]];
+                    })
             ]
         );
     }
@@ -46,7 +48,7 @@ class ActressController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) //POST, PUT
@@ -57,7 +59,7 @@ class ActressController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id) //GET
@@ -68,7 +70,7 @@ class ActressController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id) //GET
@@ -79,8 +81,8 @@ class ActressController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) //POST
@@ -91,7 +93,7 @@ class ActressController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) //DELETE
