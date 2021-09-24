@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActressRequest;
 use App\Models\Actress;
+use App\Models\Film;
 use Illuminate\Http\Request;
 
 class ActressController extends Controller
@@ -34,7 +36,14 @@ class ActressController extends Controller
                         return [$actress->id => [
                             'name' => $actress->name,
                             'age' => $actress->age,
-                            'country' => $actress->country
+                            'country' => $actress->country,
+                            'films' => $actress->films->map(function ($film){
+                                return [
+                                    'name'=>$film->name,
+                                'year'=>$film->year,
+                                'country'=>$film->country
+                                    ];
+                            })   # так как есть релейшн метод
                         ]];
                     })
             ]
@@ -57,9 +66,32 @@ class ActressController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) //POST, PUT
+    public function store(ActressRequest $request) //POST, PUT
     {
-        //
+        $data= $request->prepareData();
+        $actress= Actress::updateOrCreate(
+            ['name'=>$data['name']],
+            $data
+        );
+        if (!isset($data['films'])) {
+            return response()->json(
+                [
+                    "success"=>false,
+                    "message"=>"запись создана или обновлена, но фильмов нет",
+                    "errorCode" => 12
+                ]
+            );
+        }
+        $films = Film::find($data['films']);
+        $actress->films()->sync($films);
+
+        return response()->json(
+            [
+                "success"=>true,
+                "message"=>"запись создана или обновлена"
+            ]
+        );
+
     }
 
     /**
@@ -102,8 +134,16 @@ class ActressController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) //DELETE
+    public function destroy(Actress $actress) //DELETE
     {
-        //
+        $actress->films()->detach(); //relation
+        $actress->delete();
+        return response()->json(
+            [
+                "success"=>true,
+                "message"=>"Актриса успешно удалена"
+            ]
+        );
+
     }
 }
