@@ -62,3 +62,39 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+$ history
+1 ./hashcat64.bin -m 500 example500.hash example.dict
+2 php -v
+3 composer global require laravel/installer
+4 npm -v
+5 composer -v
+6 composer create-project loravel/loravel mk
+7 composer create-project laravel/laravel mk
+8 cd mk
+9 php artisan
+10 php artisan migrate
+11 php artisan migrate:status
+12 php artisan make Actress -m
+13 php artisan make:model Actress -m
+14 php artisan migrate:status
+15 php artisan migrate
+16 php artisan make:model Film -m
+17 php artisan migrate
+18 php artisan make:migration create_actresses_films_table
+19 php artisan migrate
+20 php artisan migrate
+21*
+22 php artisan migrate
+23 php artisan migrate:callback
+24 php artisan migrate:rollback
+25 php artisan migrate:status
+26 php artisan migrate
+27 php artisan migrate:status
+28 php artisan migrate
+29 php artisan make:controller ActressController -r
+30 history
+31 php artisan make:controller FilmController -r
+edit api.php
+

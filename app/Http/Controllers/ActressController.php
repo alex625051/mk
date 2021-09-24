@@ -15,13 +15,19 @@ class ActressController extends Controller
     public function index() //get
     {
         $country = \request('country');
-        $age_lt = \request('age_lte');
-        $age_gt = \request('age_gte');
+        $age_lte = \request('age_lte');
+        $age_gte = \request('age_gte');
         return response()->json(
             [
                 'actresses' => Actress::query()
-                    ->when($country, function ($query) use ($country,$age_gt) {
+                    ->when($country, function ($query) use ($country) {
                         return $query->where('country', $country);
+                    })
+                    ->when($age_gte, function ($query) use ($age_gte) {
+                        return $query->where('age',">=", $age_gte);
+                    })
+                    ->when($age_lte, function ($query) use ($age_lte) {
+                        return $query->where('age',"<=", $age_lte);
                     })
                     ->get()
                     ->mapWithKeys(function ($actress) {
