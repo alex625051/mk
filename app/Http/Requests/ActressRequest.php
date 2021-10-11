@@ -21,7 +21,8 @@ class ActressRequest extends FormRequest
             'filmsCount'=>'required',
             'alive'=>'nullable',
             'films[]'=>'nullable',
-            'films.*'=>'required|exists:films,id'
+            'films.*'=>'required|exists:films,id',
+            'file'=>'file|nullable'
 
             //
         ];

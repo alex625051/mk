@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class ActressController extends Controller
 {
+    private $storageFileFolder='actresses';
     /**
      * Display a listing of the resource.
      *
@@ -40,9 +41,9 @@ class ActressController extends Controller
                             'films' => $actress->films->map(function ($film){
                                 return [
                                     'name'=>$film->name,
-                                'year'=>$film->year,
-                                'country'=>$film->country
-                                    ];
+                                    'year'=>$film->year,
+                                    'country'=>$film->country
+                                ];
                             })   # так как есть релейшн метод
                         ]];
                     })
@@ -69,10 +70,16 @@ class ActressController extends Controller
     public function store(ActressRequest $request) //POST, PUT
     {
         $data= $request->prepareData();
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file')->store($this->storageFileFolder);
+        }
+
         $actress= Actress::updateOrCreate(
             ['name'=>$data['name']],
             $data
         );
+
         if (!isset($data['films'])) {
             return response()->json(
                 [
@@ -84,6 +91,9 @@ class ActressController extends Controller
         }
         $films = Film::find($data['films']);
         $actress->films()->sync($films);
+
+        $actress->notifyTelegram($file);
+
 
         return response()->json(
             [

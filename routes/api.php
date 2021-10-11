@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActressController;
 use App\Http\Controllers\FilmController;
+use App\Http\Controllers\SanctumController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::resource('/actresses', ActressController::class);
-Route::resource('/films', FilmController::class);
+Route::post('/login', [SanctumController::class, 'login']);
+Route::post('/sms', [SanctumController::class, 'sms']);
+
+//Route::middleware('auth:sanctum')->group( function () {
+    Route::resource('/actresses', ActressController::class);
+    Route::resource('/films', FilmController::class);
+
+//});

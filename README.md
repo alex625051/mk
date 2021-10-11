@@ -98,3 +98,55 @@ $ history
 31 php artisan make:controller FilmController -r
 edit api.php
 
+history
+1  ./hashcat64.bin -m 500 example500.hash example.dict
+2  php -v
+3  composer global require laravel/installer
+4  npm -v
+5  history
+6  php artisan make
+7  php artesian make
+8  php artisan list
+9  composer
+10  composer artisan
+11  composer php
+12  history
+13  php artisan list
+14  history
+15  php artisan list
+16  php artisan make:controller FilmController -r
+17  php artisan route:list
+18  grep "actresses"
+19  php artisan make:request ActressRequest
+20  php artisan route:list
+21  php artisan make:request FilmRequest
+22  php artisan make:migration CreateUsersTable
+23  cd ..
+24  php artisan make:migration CreateUsersTable
+25  cd htdocs
+26  cd mk
+27  php artisan make:migration CreateUsersTable
+28  php artisan make:migrate
+29  php artisan make:migration
+30  php artisan migrate
+31  composer require laravel/sanctum
+32  php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+33  php artisan migrate:status
+34  php artisan make:controller SanctumController
+35  php artisan make:controller SanctumController
+36  php artisan make:controller SanctumController
+37  php artisan migrate:rollback
+38  php artisan migrate
+39  artasan
+40  artisan
+41  php
+42  composer require irazasyed/telegram-bot-sdk
+43  composer require irazasyed/telegram-bot-sdk --with-all-dependencies
+44  composer require irazasyed/telegram-bot-sdk -w
+45  php artisan vendor:publish —provider="Telegram\Bot\Laravel\TelegramServiceProvider"
+46  php artisan vendor:publish --provider="Telegram\Bot\Laravel\TelegramServiceProvider"
+47  hystory
+48  history
+49  history
+
+
